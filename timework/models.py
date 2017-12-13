@@ -1,22 +1,39 @@
 from django.db import models
 
-class Publisher(models.Model):
-    name = models.CharField(max_length=30)
-    address = models.CharField(max_length=50)
-    city = models.CharField(max_length=60)
-    state_province = models.CharField(max_length=30)
-    country = models.CharField(max_length=50)
-    website = models.URLField()
-
-class Author(models.Model):
+class Worker(models.Model):
     first_name = models.CharField(max_length=30)
-    last_name = models.CharField(max_length=40)
-    email = models.EmailField()
+    second_name = models.CharField(max_length=30)
 
-class Book(models.Model):
-    title = models.CharField(max_length=100)
-    authors = models.ManyToManyField(Author)
-    publisher = models.ForeignKey(Publisher)
-    publication_date = models.DateField()
+    def __str__(self):
+        return self.first_name + " " + self.second_name
 
-# Create your models here.
+class Card(models.Model):
+    uid = models.CharField(max_length=30)
+    worker = models.ForeignKey(Worker, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.worker.first_name + " " + self.worker.second_name + " : " + self.uid
+
+class Reader(models.Model):
+    name = models.CharField(max_length=30)
+    location = models.CharField(max_length=30)
+
+    def __str__(self):
+        return self.location + " : " + self.name
+
+class Record(models.Model):
+    date = models.DateTimeField()
+    card = models.ForeignKey(Card, on_delete=models.CASCADE)
+    reader = models.ForeignKey(Reader, on_delete=models.CASCADE)
+    type = models.CharField(max_length=30)
+
+    def __str__(self):
+        return self.worker.first_name + " " + self.worker.second_name +  " : " + self.type + " - " + self.reader.name + " - " + str(self.date)
+
+class Messages(models.Model):
+    body = models.CharField(max_length=60)
+    date = models.DateTimeField()
+    worker = models.ForeignKey(Worker, models.CASCADE)
+
+    def __str__(self):
+        return self.worker.first_name + " " + self.worker.second_name + " : " + self.body + " - " + str(self.date)
