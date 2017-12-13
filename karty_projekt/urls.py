@@ -16,9 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url
-from timework.views import reg_entrence
+from timework.views import reg_entrence, get_users
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^register_entrence/$', reg_entrence),
+    url(r'^get_users/$', get_users),
 ]
