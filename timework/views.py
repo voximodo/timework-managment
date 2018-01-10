@@ -49,3 +49,16 @@ def get_messages(request):
             response = response + "<li>" + m.body + " - " + str(m.date) + " - " + str(m.read) + "</li>"
 
         return HttpResponse(response)
+
+def get_last_status(request):
+    if 'c' in request.GET:
+        uid = request.GET['c']
+        card = Card.objects.get(uid=uid)
+        records = Record.objects.filter(card=card).order_by('-date')
+        for r in records:
+            if r.type == 'workin' or r.type == 'workout' or r.type == 'break':
+                return HttpResponse(r.type)
+
+        return HttpResponse("workout")
+
+    return HttpResponse("Blad.")
