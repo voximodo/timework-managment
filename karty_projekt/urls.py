@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url
-from timework.views import reg_entrence, get_users, reg_card, get_messages, get_last_status
+from timework.views import reg_entrence, get_users, reg_card, get_messages, get_last_status, get_l_messages
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,6 +24,7 @@ urlpatterns = [
     url(r'^register_card/$', reg_card),
     url(r'^get_users/$', get_users),
     url(r'^get_mess/$', get_messages),
+    url(r'^get_l_mess/$', get_l_messages),
     url(r'^get_ls/$', get_last_status),
 
 ]

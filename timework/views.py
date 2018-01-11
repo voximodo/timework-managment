@@ -35,30 +35,52 @@ def get_users(request):
     response = " "
 
     for worker in workers:
-        response = response + "<li>" + str(worker.id) + "." + worker.first_name + " " + worker.second_name + "</li>"
+        #response = response + "<li>" + str(worker.id) + "." + worker.first_name + " " + worker.second_name + "</li>"
+        response = response + str(worker.id) + "-" + worker.first_name + " " + worker.second_name + "</br>"
 
     return HttpResponse(response)
 
 def get_messages(request):
-    if 'w' in request.GET:
-        id = int(request.GET['w'])
-        worker = Worker.objects.get(id=id)
-        mess = Messages.objects.filter(worker=worker)
-        response = "Wiadomosci:</br>"
-        for m in mess:
-            response = response + "<li>" + m.body + " - " + str(m.date) + " - " + str(m.read) + "</li>"
+    if 'c' in request.GET:
+        uid = request.GET['c']
+        if Card.objects.filter(uid=uid).exists():
+            card = Card.objects.get(uid=uid)
+            worker = card.worker
+            mess = Messages.objects.filter(worker=worker)
+            response = "Wiadomosci:</br>"
+            for m in mess:
+                response = response + "<li>" + m.body + " - " + str(m.date) + " - " + str(m.read) + "</li>"
 
-        return HttpResponse(response)
+            return HttpResponse(response)
+
+def get_l_messages(request):
+    if 'c' in request.GET:
+        uid = request.GET['c']
+        if Card.objects.filter(uid=uid).exists():
+            card = Card.objects.get(uid=uid)
+            worker = card.worker
+            mess = Messages.objects.filter(worker=worker)
+            response = ""
+            for m in mess:
+                if m.read == 0:
+                    response = response + "<li>" + m.body + " - " + str(m.date.strftime("%Y-%m-%d %H:%M:%S")) + "</li>"
+                    m.read = 1
+                    m.save()
+
+            return HttpResponse(response)
 
 def get_last_status(request):
     if 'c' in request.GET:
         uid = request.GET['c']
-        card = Card.objects.get(uid=uid)
-        records = Record.objects.filter(card=card).order_by('-date')
-        for r in records:
-            if r.type == 'workin' or r.type == 'workout' or r.type == 'break':
-                return HttpResponse(r.type)
+        if Card.objects.filter(uid=uid).exists():
+            card = Card.objects.get(uid=uid)
+            records = Record.objects.filter(card=card).order_by('-date')
+            for r in records:
+                if r.type == 'workin' or r.type == 'workout' or r.type == 'break':
+                    return HttpResponse(card.worker.first_name + " " + card.worker.second_name + "-" + r.type)
+        else:
+            return HttpResponse("nocard")
 
-        return HttpResponse("workout")
+        return HttpResponse(card.worker.first_name + " " + card.worker.second_name + "-workout")
 
     return HttpResponse("Blad.")
