@@ -104,9 +104,25 @@ def user_detail(request):
         for c in cards:
             cr[c] = Record.objects.filter(card=c).order_by('-date')[:10]
 
-        m = Messages.objects.filter(worker=worker, read=0)
+        m = Messages.objects.filter(worker=worker, read=0).order_by('-date')
         t = get_template('u_user.html')
         html = t.render({'cr': cr, 'us': worker, 'mess': m})
+        return HttpResponse(html)
+
+
+    t = get_template('h_home.html')
+    html = t.render({})
+    return HttpResponse(html)
+
+
+def user_messages(request):
+    if 'w' in request.GET:
+        id = int(request.GET['w'])
+        worker = Worker.objects.get(id=id)
+
+        m = Messages.objects.filter(worker=worker).order_by('-date')
+        t = get_template('m_mess.html')
+        html = t.render({'us': worker, 'mess': m})
         return HttpResponse(html)
 
 
