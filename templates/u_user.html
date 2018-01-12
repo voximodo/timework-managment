@@ -1,0 +1,64 @@
+{% extends 'base_h.html' %}
+
+{% block title %}{% endblock %}
+
+{% block content %}
+			{% load staticfiles %}
+
+  <div class="col-sm-6">
+ <center>
+  		<div class="panel panel-default" style="display: inline-block;  width: 400px;" >
+				<div class="panel-heading">
+					<h1 class="panel-title"><span class="glyphicon glyphicon-random"></span>  <strong>{{ us.first_name }} {{ us.second_name }}</strong></h1>
+				</div>
+				<div class="list-group">
+				 
+				
+				
+				</div>
+			</div>
+			</center>
+			
+							 
+			<center>
+		
+			  		<div class="panel panel-default" style="display: inline-block;" >
+				<div class="panel-heading">
+					<h1 class="panel-title">Wiadomosci nieprzeczytane: </a></h1>
+				</div>
+				{% for m in mess %}
+							<div class="panel-body"><center>
+							 
+				 <p><span class="label label-default"><font size="2">{{ m.body }}</font></span></p>
+				 <p>{{ m.date|date:"d.m.Y - H:i:s" }}</p>
+				 </center>
+				</div>
+				 {% endfor %}
+			</div>
+				
+			</center>
+		
+			
+				 {% for key, value in cr.items %}
+			<center>
+		
+			  		<div class="panel panel-default" style="display: inline-block;" >
+				<div class="panel-heading">
+					<h1 class="panel-title">Karta: <a href="http://localhost"><b>{{ key.uid }}</b></a></h1>
+				</div>
+				{% for r in value %}
+							<div class="panel-body"><center>
+							 
+				 <p class="pull-left"><span class="label label-default"><font size="2">{{ r.type }}</font></span></p>
+				 <p class="pull-right">{{ r.date|date:"d.m.Y - H:i:s" }}</p>
+				 <p class=""><font size="1">{{ r.reader.location }} - {{ r.reader.name }}</font></p>
+				 </center>
+				</div>
+				 {% endfor %}
+			</div>
+				
+			</center>
+		 {% endfor %}
+</div>
+
+{% endblock %}

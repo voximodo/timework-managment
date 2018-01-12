@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.template.loader import get_template
+
 from .models import Worker, Card, Messages, Reader, Record
 
 def reg_entrence(request):
@@ -84,3 +86,30 @@ def get_last_status(request):
         return HttpResponse(card.worker.first_name + " " + card.worker.second_name + "-workout")
 
     return HttpResponse("Blad.")
+
+def main(request):
+
+    users = Worker.objects.all()
+
+    t = get_template('h_home.html')
+    html = t.render({'users': users})
+    return HttpResponse(html)
+
+def user_detail(request):
+    if 'w' in request.GET:
+        id = int(request.GET['w'])
+        worker = Worker.objects.get(id=id)
+        cr = dict()
+        cards = Card.objects.filter(worker=worker)
+        for c in cards:
+            cr[c] = Record.objects.filter(card=c).order_by('-date')[:10]
+
+        m = Messages.objects.filter(worker=worker, read=0)
+        t = get_template('u_user.html')
+        html = t.render({'cr': cr, 'us': worker, 'mess': m})
+        return HttpResponse(html)
+
+
+    t = get_template('h_home.html')
+    html = t.render({})
+    return HttpResponse(html)
