@@ -93,6 +93,8 @@ def main(request):
 
     t = get_template('h_home.html')
     html = t.render({'users': users})
+
+    
     return HttpResponse(html)
 
 def user_detail(request):
