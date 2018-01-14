@@ -1,0 +1,55 @@
+{% extends 'base_h.html' %}
+
+{% block title %}{% endblock %}
+
+{% block content %}
+			{% load staticfiles %}
+
+  <div class="col-sm-6">
+ <center>
+  		<div class="panel panel-default" style="display: inline-block;  width: 400px;" >
+				<div class="panel-heading">
+					<h1 class="panel-title"><span class="glyphicon glyphicon-random"></span>  <strong>Zarządzanie wiadomościami</strong></h1>
+				</div>
+				<div class="list-group">
+				 
+				
+				
+				</div>
+			</div>
+			</center>
+				 
+			<center>
+		
+			  		<div class="panel panel-default" style="display: inline-block;" >
+				<div class="panel-heading">
+					<h1 class="panel-title"><b>Usuń wiadomość</b></h1>
+				</div>
+				<div class="panel-body"><center>
+				 <p class="pull-right"><span class="label label-default"></span></p>
+
+					 <form action="{% url 'addmess' %}">
+
+			  <p>Wiadomość usunięto pomyślnie!</p>
+			 	
+			<button onclick="goBack()" class="btn btn-default" style="background-color: #8BC34A; color: white;">Wróć</button>
+
+			 </form>
+
+
+				
+				 </center>
+				</div>
+			</div>
+				
+			</center>
+		
+</div>
+
+<script>
+function goBack() {
+    window.history.back();
+}
+</script>
+
+{% endblock %}
