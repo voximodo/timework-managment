@@ -9,7 +9,7 @@
  <center>
   		<div class="panel panel-default" style="display: inline-block;  width: 400px;" >
 				<div class="panel-heading">
-					<h1 class="panel-title"><span class="glyphicon glyphicon-random"></span>  <strong>{{ us.first_name }} {{ us.second_name }}</strong></h1>
+					<h1 class="panel-title"><span class="glyphicon glyphicon-random"></span>  <strong>{{ us.first_name }} {{ us.second_name }} - wiadomości</strong></h1>
 				</div>
 				<div class="list-group">
 				 
@@ -21,24 +21,29 @@
 			
 							 
 			<center>
-		
+		{% for m in mess %}
 			  		<div class="panel panel-default" style="display: inline-block;" >
 				<div class="panel-heading">
-					<h1 class="panel-title">Historia wiadomości: </a></h1>
+					<h1 class="panel-title">{{ m.body }}</a></h1>
 				</div>
-				{% for m in mess %}
+				
 							<div class="panel-body"><center>
 							 				 {% if m.read == 0 %}
-				 <p><b>Nieprzeczytana:</b></p>
+				 <p><span class="label label-default"><font size="2">Nieprzeczytana</font></span></p>
 				 {% endif %}
-				 <p><span class="label label-default"><font size="2">{{ m.body }}</font></span></p>
+					 {% if m.read == 1 %}
+				 <p>Przeczytana</p>
+				 {% endif %}
+
 				 <p>{{ m.date|date:"d.m.Y - H:i:s" }}</p>
+				
+			 <p><span class="label label-default" style="background-color: #B71C1C; color: white;"><font size="2"><a href='{% url 'remmess' %}?m={{ m.id }}' style="background-color: #B71C1C; color: white;">Usuń</a></font></span></p>
 
 				 </center>
 				</div>
-				 {% endfor %}
-			</div>
 				
+			</div>
+				 {% endfor %}
 			</center>
 		
 			

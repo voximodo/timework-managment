@@ -159,4 +159,14 @@ def add_messages(request):
     html = t.render()
     return HttpResponse(html)
 
+def remove_message (request):
+    if 'm' in request.GET:
+        id = int(request.GET['m'])
+        Messages.objects.get(id=id).delete()
+
+    t = get_template('d_mess_s.html')
+    html = t.render()
+    return HttpResponse(html)
+
+
 
