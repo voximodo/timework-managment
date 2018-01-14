@@ -18,18 +18,15 @@
 				</div>
 			</div>
 			</center>
-				 {% for key, value in ur.items %}
+				 {% for us in users %}
 			<center>
 		
 			  		<div class="panel panel-default" style="display: inline-block;" >
 				<div class="panel-heading">
-					<h1 class="panel-title"><a href="{% url 'userdetails' %}?w={{ key.id }}"><b>{{ key.first_name }} {{ key.second_name }}</b></a></h1>
+					<h1 class="panel-title"><a href="{% url 'userdetails' %}?w={{ us.id }}"><b>{{ us.first_name }} {{ us.second_name }}</b></a></h1>
 				</div>
 				<div class="panel-body"><center>
-				 <p class="pull-right"><span class="label label-default"></span></p>
-				 {% for key, value in value.items %}
-				 <p><b>{{ key }}:</b> {{ value }}</p>
-				 {% endfor %}
+				 <p class="pull-right"><span class="label label-default"></span>
 				 </center>
 				</div>
 			

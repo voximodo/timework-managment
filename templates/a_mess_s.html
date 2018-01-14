@@ -9,7 +9,7 @@
  <center>
   		<div class="panel panel-default" style="display: inline-block;  width: 400px;" >
 				<div class="panel-heading">
-					<h1 class="panel-title"><span class="glyphicon glyphicon-random"></span>  <strong>Zarządzanie użytkownikami</strong></h1>
+					<h1 class="panel-title"><span class="glyphicon glyphicon-random"></span>  <strong>Zarządzanie wiadomościami</strong></h1>
 				</div>
 				<div class="list-group">
 				 
@@ -18,25 +18,32 @@
 				</div>
 			</div>
 			</center>
-				 {% for key, value in ur.items %}
+				 
 			<center>
 		
 			  		<div class="panel panel-default" style="display: inline-block;" >
 				<div class="panel-heading">
-					<h1 class="panel-title"><a href="{% url 'userdetails' %}?w={{ key.id }}"><b>{{ key.first_name }} {{ key.second_name }}</b></a></h1>
+					<h1 class="panel-title"><b>Dodaj wiadomość</b></h1>
 				</div>
 				<div class="panel-body"><center>
 				 <p class="pull-right"><span class="label label-default"></span></p>
-				 {% for key, value in value.items %}
-				 <p><b>{{ key }}:</b> {{ value }}</p>
-				 {% endfor %}
+
+					 <form action="{% url 'addmess' %}">
+
+			  <p>Wiadomość dodano pomyślnie!</p>
+			 	
+			
+			 <input type="submit" class="btn btn-default" style="background-color: #8BC34A; color: white;" value="Wróć" />
+			 </form>
+
+
+				
 				 </center>
 				</div>
-			
 			</div>
 				
 			</center>
-		 {% endfor %}
+		
 </div>
 
 {% endblock %}

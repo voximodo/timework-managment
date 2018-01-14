@@ -16,10 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url
-from timework.views import reg_entrence, get_users, reg_card, get_messages, get_last_status, get_l_messages, main, user_detail, user_messages
+from timework.views import reg_entrence, get_users, reg_card, get_messages, get_last_status, get_l_messages, main, user_detail, user_messages, add_messages_f, add_messages
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls, name='admin'),
     url(r'^register_entrence/$', reg_entrence),
     url(r'^register_card/$', reg_card),
     url(r'^get_users/$', get_users),
@@ -29,5 +29,7 @@ urlpatterns = [
     url(r'^home/$', main, name='main'),
     url(r'^user/$', user_detail, name='userdetails'),
     url(r'^user_mess/$', user_messages, name='usermess'),
+    url(r'^add_mess/$', add_messages_f, name='addmess'),
+    url(r'^add_mess/add/$', add_messages),
 
 ]

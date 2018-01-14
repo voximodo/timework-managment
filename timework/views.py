@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.template.loader import get_template
+from django.views.generic import DetailView
 
 from .models import Worker, Card, Messages, Reader, Record
 
@@ -90,11 +91,18 @@ def get_last_status(request):
 def main(request):
 
     users = Worker.objects.all()
+    ur = dict()
+    for u in users:
+        dt = dict()
+        dt["Wiadomości"] = Messages.objects.filter(worker=u).count()
+        dt["Nieprzeczytane wiadomości:"] = Messages.objects.filter(worker=u, read=0).count()
+        dt["Liczba kart"] = Card.objects.filter(worker=u).count()
+        ur[u] = dt
 
     t = get_template('h_home.html')
-    html = t.render({'users': users})
+    html = t.render({'ur': ur})
 
-    
+
     return HttpResponse(html)
 
 def user_detail(request):
@@ -131,3 +139,24 @@ def user_messages(request):
     t = get_template('h_home.html')
     html = t.render({})
     return HttpResponse(html)
+
+def add_messages_f(request):
+    us = Worker.objects.all()
+    t = get_template('a_mess.html')
+    html = t.render({'us': us})
+    return HttpResponse(html)
+
+def add_messages(request):
+    if 'user' in request.GET:
+        id = int(request.GET['user'])
+        worker = Worker.objects.get(id=id)
+
+        body = request.GET['body']
+        m = Messages(worker=worker, body=body, read=0)
+        m.save()
+
+    t = get_template('a_mess_s.html')
+    html = t.render()
+    return HttpResponse(html)
+
+

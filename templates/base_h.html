@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>SerFa IoT - zarządzanie czujnikami</title>
+    <title>MCP - Rejestrator czasu pracy</title>
 {% load staticfiles %}
 
 
@@ -42,6 +42,8 @@
 				</div>
 				<div class="list-group">
 					<a href="{% url 'main' %}" class="list-group-item">Strona Glowna</a>
+					<a href="{% url 'addmess' %}" class="list-group-item">Zarządzanie wiadomościami</a>
+					<a href="{% url 'admin:index' %}" class="list-group-item">Panel administratora</a>
 				</div>
 			</div>
 
@@ -69,8 +71,9 @@
 		<div class="footer-blurb">
 			     <div class="small-print">
         	<div class="container">
-        		<p><a href="http://serfa.pl">Strona firmowa</a></p>
-        		<p>Copyright &copy; serfa.pl 2017 </p>
+        		<p><a href="http://www.mcp.poznan.pl/">MCP</a></p>
+        		<p>Copyright &copy; Szymon Goździk & Błażej Suszka</p>
+				<p>2017-2018</p>
         	</div>
         </div>
         </div>
